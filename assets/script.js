@@ -15,8 +15,8 @@ const cities = [
 init();
 function init() {
   populateSidebar(sidebar);
-  var lat = runGeoCodeAPI();
-  console.log(lat);
+  populateCards();
+  var geo = runGeoCodeAPI(cities[0]);
 }
 // this function populates the side bar
 function populateSidebar(sidebar) {
@@ -29,11 +29,30 @@ function populateSidebar(sidebar) {
     button.style.margin = "10px";
   }
 }
+//creates all of the smaller cards that will contain the 5 day forcast
+function populateCards() {
+  let fiveul = document.querySelector("#five-day-forcast-list");
+  for (i = 0; i < 5; i++) {
+    let card = document.createElement("li");
+    fiveul.appendChild(card);
+    let date = document.createElement("h2");
+    card.appendChild(date);
+    date.innerHTML = "date";
+    let icon = document.createElement("h2");
+    card.appendChild(icon);
+    icon.innerHTML = "icon";
+    for (q = 0; q < 3; q++) {
+      var info = document.createElement("h3");
+      card.appendChild(info);
+      info.innerHTML = "info";
+    }
+  }
+}
 
 //This function gets the geocoordinates to properly get the weather
-async function runGeoCodeAPI() {
+async function runGeoCodeAPI(city) {
   const apiToken = "cab88f39e9ecaaf152f3f6cf6b68c329";
-  const url = `http://api.openweathermap.org/geo/1.0/direct?q=London&limit=5&appid=${apiToken}`;
+  const url = `http://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=5&appid=${apiToken}`;
   const result = await fetch(url);
   result.json().then((json) => {
     getWeatherData(json);
@@ -52,7 +71,7 @@ async function getWeatherData(response) {
   const result = await fetch(url);
   result.json().then((json) => {
     console.log(json);
-    populateElement(json, element, name);
+    populateElement(json, element, name, 0);
   });
 }
 
@@ -68,11 +87,11 @@ function getDate(num) {
 }
 function getFiveDayFormat(response) {}
 
-function populateElement(response, element, name) {
-  let date = getDate(0);
+function populateElement(response, element, name, day) {
+  let date = getDate(day);
   let title = `${name} ${date} 😀`;
   element[0].innerHTML = title;
   element[1].innerHTML = response.main.temp + "°F";
   element[2].innerHTML = response.wind.speed + "mph";
-  element[3].innerHTML = response.main.humidity;
+  element[3].innerHTML = response.main.humidity + "%";
 }
