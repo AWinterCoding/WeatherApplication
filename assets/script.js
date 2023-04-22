@@ -36,7 +36,6 @@ async function runGeoCodeAPI() {
   const url = `http://api.openweathermap.org/geo/1.0/direct?q=London&limit=5&appid=${apiToken}`;
   const result = await fetch(url);
   result.json().then((json) => {
-    console.log(json);
     getWeatherData(json);
   });
 }
@@ -56,10 +55,24 @@ async function getWeatherData(response) {
     populateElement(json, element, name);
   });
 }
-function getDate() {}
+
+//here is a function to get the date courtesy of https://stackoverflow.com/questions/1531093/how-do-i-get-the-current-date-in-javascript
+//I also want to say that I also do understand this code and what its doing and haven't just copy pasted it in.
+function getDate(num) {
+  let today = new Date();
+  let day = String(today.getDate() + num).padStart(2, "0");
+  let month = String(today.getMonth() + 1).padStart(2, "0");
+  let year = today.getFullYear();
+  let returnString = month + "/" + day + "/" + year;
+  return returnString;
+}
 function getFiveDayFormat(response) {}
 
 function populateElement(response, element, name) {
-  let title = `${name} " " `;
-  element[0];
+  let date = getDate(0);
+  let title = `${name} ${date} 😀`;
+  element[0].innerHTML = title;
+  element[1].innerHTML = response.main.temp + "°F";
+  element[2].innerHTML = response.wind.speed + "mph";
+  element[3].innerHTML = response.main.humidity;
 }
