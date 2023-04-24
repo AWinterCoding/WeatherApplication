@@ -14,9 +14,18 @@ const cities = [
 
 init();
 function init() {
+  buildSearch();
   populateSidebar(sidebar);
   populateCards();
   runGeoCodeAPI(cities[0]);
+}
+//this is the method that builds the eventlistener for the search button
+function buildSearch() {
+  search.addEventListener("click", function () {
+    let search = document.querySelector("#search");
+    let searchbox = document.querySelector("#searchbox");
+    runGeoCodeAPI(searchbox.value);
+  });
 }
 // this function populates the side bar
 function populateSidebar(sidebar) {
@@ -57,10 +66,15 @@ function populateCards() {
 async function runGeoCodeAPI(city) {
   const apiToken = "cab88f39e9ecaaf152f3f6cf6b68c329";
   const url = `http://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=5&appid=${apiToken}`;
-  const result = await fetch(url);
+  let result;
+  result = await fetch(url);
   result.json().then((json) => {
-    getWeatherData(json);
-    getFiveDayForcast(json);
+    if (json.length == 0) {
+      alert("There was an error, please retry to input");
+    } else {
+      getWeatherData(json);
+      getFiveDayForcast(json);
+    }
   });
 }
 
@@ -78,6 +92,7 @@ async function getWeatherData(response) {
   });
 }
 
+//does the same thing as the first one but gets the next five days (note this api call grabs 7 days but I am only using 5 for this)
 async function getFiveDayForcast(response) {
   let lat = response[0].lat;
   let lon = response[0].lon;
@@ -88,10 +103,10 @@ async function getFiveDayForcast(response) {
     populateFiveCards(json);
   });
 }
+
+//updates the elements of the five cards for the future forecast
 function populateFiveCards(response) {
-  console.log("populatedfivecards");
   let fiveul = document.querySelectorAll(".card");
-  console.log(fiveul);
   for (i = 0; i < fiveul.length; i++) {
     let children = fiveul[i].childNodes;
     children[0].innerHTML = getDate(i + 1);
@@ -102,6 +117,7 @@ function populateFiveCards(response) {
   }
 }
 
+//populates all the information in the main element
 function populateElement(response, element, name, day) {
   let date = getDate(day);
   let title = `${name} ${date} 😀`;

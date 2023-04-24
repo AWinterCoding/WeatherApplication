@@ -1,0 +1,13 @@
+h1 {
+  background-color: #ff8c00;
+  color: white;
+  width: auto;
+  text-align: center;
+  font-size: 48px;
+  height: 60px;
+  border-radius: 15px;
+}
+.sidebar {
+  float: left;
+  margin: 0% 10% 0% 1%;
+}
