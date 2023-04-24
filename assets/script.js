@@ -10,8 +10,6 @@ const cities = [
   "Austin",
 ];
 
-//app token cab88f39e9ecaaf152f3f6cf6b68c329
-
 init();
 function init() {
   buildSearch();
@@ -50,7 +48,7 @@ function populateCards() {
     let date = document.createElement("h2");
     card.appendChild(date);
     date.innerHTML = "date";
-    let icon = document.createElement("a");
+    let icon = document.createElement("img");
     card.appendChild(icon);
     icon.innerHTML = "icon";
     for (q = 0; q < 3; q++) {
@@ -87,7 +85,6 @@ async function getWeatherData(response) {
   const url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiToken}&units=imperial`;
   const result = await fetch(url);
   result.json().then((json) => {
-    console.log(json);
     populateElement(json, element, name, 0);
   });
 }
@@ -100,6 +97,7 @@ async function getFiveDayForcast(response) {
   const url = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&exclude=current,hourly,minutely,alerts&units=imperial&appid=${apiToken}`;
   const result = await fetch(url);
   result.json().then((json) => {
+    console.log(json);
     populateFiveCards(json);
   });
 }
@@ -107,10 +105,13 @@ async function getFiveDayForcast(response) {
 //updates the elements of the five cards for the future forecast
 function populateFiveCards(response) {
   let fiveul = document.querySelectorAll(".card");
+  console.log(response);
   for (i = 0; i < fiveul.length; i++) {
     let children = fiveul[i].childNodes;
+    let weather = response.daily[i].weather[0].main;
+    let icon = getIcon(weather);
     children[0].innerHTML = getDate(i + 1);
-    children[1].innerHTML = "🌧";
+    children[1].src = icon;
     children[2].innerHTML =
       "Temperature: " + response.daily[i].temp.day + " °F";
     children[3].innerHTML =
@@ -122,9 +123,10 @@ function populateFiveCards(response) {
 //populates all the information in the main element
 function populateElement(response, element, name, day) {
   let date = getDate(day);
+  let icon = getIcon(response);
   let title = `${name} ${date}`;
   element[0].innerHTML = title;
-  element[1].innerHTML = "this was changed";
+  element[1].src = icon;
   element[2].innerHTML = "Temperature: " + response.main.temp + " °F";
   element[3].innerHTML = "Wind Speed: " + response.wind.speed + " mph";
   element[4].innerHTML = "Humidity: " + response.main.humidity + " %";
@@ -138,4 +140,21 @@ function getDate(num) {
   let year = today.getFullYear();
   let returnString = month + "/" + day + "/" + year;
   return returnString;
+}
+//icon grabber for weather
+function getIcon(weather) {
+  switch (weather) {
+    case "Rain":
+      return "/assets/images/rain.png";
+    case "Clear":
+      return "/assets/images/sunny.png";
+    case "Clouds":
+      return "/assets/images/cloudy.png";
+    case "Mist":
+      return "/assets/images/windycloud.png";
+    case "Snow":
+      return "/assets/images/snowy.png";
+    default:
+      return "/assets/images/rain.png";
+  }
 }
