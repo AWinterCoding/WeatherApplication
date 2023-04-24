@@ -50,7 +50,7 @@ function populateCards() {
     let date = document.createElement("h2");
     card.appendChild(date);
     date.innerHTML = "date";
-    let icon = document.createElement("h2");
+    let icon = document.createElement("a");
     card.appendChild(icon);
     icon.innerHTML = "icon";
     for (q = 0; q < 3; q++) {
@@ -87,6 +87,7 @@ async function getWeatherData(response) {
   const url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiToken}&units=imperial`;
   const result = await fetch(url);
   result.json().then((json) => {
+    console.log(json);
     populateElement(json, element, name, 0);
   });
 }
@@ -121,11 +122,12 @@ function populateFiveCards(response) {
 //populates all the information in the main element
 function populateElement(response, element, name, day) {
   let date = getDate(day);
-  let title = `${name} ${date} 😀`;
+  let title = `${name} ${date}`;
   element[0].innerHTML = title;
-  element[1].innerHTML = "Temperature: " + response.main.temp + " °F";
-  element[2].innerHTML = "Wind Speed: " + response.wind.speed + " mph";
-  element[3].innerHTML = "Humidity: " + response.main.humidity + " %";
+  element[1].innerHTML = "this was changed";
+  element[2].innerHTML = "Temperature: " + response.main.temp + " °F";
+  element[3].innerHTML = "Wind Speed: " + response.wind.speed + " mph";
+  element[4].innerHTML = "Humidity: " + response.main.humidity + " %";
 }
 //here is a function to get the date courtesy of https://stackoverflow.com/questions/1531093/how-do-i-get-the-current-date-in-javascript
 //I also want to say that I also do understand this code and what its doing and haven't just copy pasted it in.
