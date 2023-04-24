@@ -35,7 +35,6 @@ function populateSidebar(sidebar) {
     button.type = "button";
     button.value = cities[i];
     button.style.display = "block";
-    button.style.margin = "10px";
     button.addEventListener("click", function () {
       runGeoCodeAPI(this.value);
     });
@@ -111,9 +110,11 @@ function populateFiveCards(response) {
     let children = fiveul[i].childNodes;
     children[0].innerHTML = getDate(i + 1);
     children[1].innerHTML = "🌧";
-    children[2].innerHTML = response.daily[i].temp.day + "°F";
-    children[3].innerHTML = response.daily[i].wind_speed + "mph";
-    children[4].innerHTML = response.daily[i].humidity + "%";
+    children[2].innerHTML =
+      "Temperature: " + response.daily[i].temp.day + " °F";
+    children[3].innerHTML =
+      "Wind Speed: " + response.daily[i].wind_speed + " mph";
+    children[4].innerHTML = "Humidity: " + response.daily[i].humidity + " %";
   }
 }
 
@@ -122,9 +123,9 @@ function populateElement(response, element, name, day) {
   let date = getDate(day);
   let title = `${name} ${date} 😀`;
   element[0].innerHTML = title;
-  element[1].innerHTML = response.main.temp + "°F";
-  element[2].innerHTML = response.wind.speed + "mph";
-  element[3].innerHTML = response.main.humidity + "%";
+  element[1].innerHTML = "Temperature: " + response.main.temp + " °F";
+  element[2].innerHTML = "Wind Speed: " + response.wind.speed + " mph";
+  element[3].innerHTML = "Humidity: " + response.main.humidity + " %";
 }
 //here is a function to get the date courtesy of https://stackoverflow.com/questions/1531093/how-do-i-get-the-current-date-in-javascript
 //I also want to say that I also do understand this code and what its doing and haven't just copy pasted it in.

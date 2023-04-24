@@ -6,8 +6,119 @@ h1 {
   font-size: 48px;
   height: 60px;
   border-radius: 15px;
+  margin-top: 0px;
 }
 .sidebar {
   float: left;
-  margin: 0% 10% 0% 1%;
+  margin: 0% 0% 0% 1%;
+  width: 300px;
+}
+input {
+  width: 100%;
+  margin: 10px;
+  height: 40px;
+  color: white;
+  background-color: #ff8c00;
+  border: none;
+  border-radius: 5px;
+  font-size: 20px;
+  font-weight: bold;
+}
+input:hover {
+  width: 100%;
+  margin: 10px;
+  height: 40px;
+  background-color: white;
+  color: #ff8c00;
+  border: none;
+  border-radius: 5px;
+  font-size: 20px;
+  font-weight: bold;
+  cursor: pointer;
+}
+#searchbox {
+  background-color: white;
+  border-color: black;
+  border-width: 2px;
+  color: black;
+  border-style: solid;
+}
+#search {
+  background-color: #1a75ff;
+  color: white;
+}
+#search:hover {
+  background-color: white;
+  color: #1a75ff;
+}
+label {
+  width: 100%;
+  font-size: 28px;
+  padding-left: 10px;
+  font-weight: bold;
+  color: white;
+}
+.internal-element {
+  color: white;
+  font-size: 30px;
+  flex-grow: 1;
+}
+.today-forecast {
+  display: flex;
+  flex-wrap: wrap;
+  flex-flow: column;
+  background-color: #1a75ff;
+  width: 550px;
+  height: 550px;
+  align-items: center;
+  position: relative;
+  left: 17%;
+  border-radius: 15px;
+  border-style: double;
+  border-color: white;
+  border-width: 7px;
+}
+.today-forecast h2 {
+  font-size: 36px;
+  color: white;
+  margin: 30px;
+}
+.five-day-forcast {
+  margin-left: 0px;
+  padding-left: 0px;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+}
+#five-day-forcast-list {
+  display: flex;
+  flex-flow: row;
+  flex-wrap: wrap;
+  background-color: #ff9819;
+  margin: 30px 0px 0px 0px;
+  padding: 0px 20px 0px 20px;
+  width: 98%;
+  height: 400px;
+  align-items: center;
+  border-radius: 20px;
+}
+.card {
+  display: inline;
+  flex-grow: 1;
+  background-color: #1a75ff;
+  color: white;
+  margin: 10px;
+  height: 80%;
+  text-align: center;
+  font-size: 18px;
+  border-radius: 10px;
+  /* this was yoinked off of w3 schools but I do know how it workds I just couldn't get a better shadow */
+  /* shoutout to w3 schools */
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+.card h2 {
+  font-size: 30px;
+}
+body {
+  background-image: url(images/clouds.jpg);
 }
