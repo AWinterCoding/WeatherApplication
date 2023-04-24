@@ -1,42 +1,55 @@
-const sidebar = document.querySelector("#city-select");
-const cities = [
-  "Atlanta",
-  "Denver",
-  "Seattle",
-  "San Francisco",
-  "Orlando",
-  "New York",
-  "Chicago",
-  "Austin",
-];
-
 init();
 function init() {
-  buildSearch();
-  populateSidebar(sidebar);
+  const sidebar = document.querySelector("#city-select");
+  let cities = restoreArray();
+  buildSearch(cities);
+  populateSidebar(sidebar, cities);
   populateCards();
-  runGeoCodeAPI(cities[0]);
+  runGeoCodeAPI(cities, cities[cities.length - 1]);
+}
+//this function restores the array on load
+function restoreArray() {
+  var cityArray = localStorage.getItem("array");
+  if (cityArray == null || cityArray == "undefined") {
+    return ["Atlanta"];
+  } else {
+    let loadedCities = JSON.parse(cityArray);
+    return loadedCities;
+  }
 }
 //this is the method that builds the eventlistener for the search button
-function buildSearch() {
+function buildSearch(cities) {
   search.addEventListener("click", function () {
     let search = document.querySelector("#search");
     let searchbox = document.querySelector("#searchbox");
-    runGeoCodeAPI(searchbox.value);
+    runGeoCodeAPI(cities, searchbox.value);
   });
 }
 // this function populates the side bar
-function populateSidebar(sidebar) {
-  for (i = 0; i < 8; i++) {
-    var button = document.createElement("input");
-    sidebar.appendChild(button);
-    button.type = "button";
-    button.value = cities[i];
-    button.style.display = "block";
-    button.addEventListener("click", function () {
-      runGeoCodeAPI(this.value);
+function populateSidebar(sidebar, cities) {
+  cities
+    .slice()
+    .reverse()
+    .forEach((element) => {
+      var button = document.createElement("input");
+      sidebar.appendChild(button);
+      button.type = "button";
+      button.value = element;
+      button.classList.add("child");
+      button.style.display = "block";
+      button.addEventListener("click", function () {
+        runGeoCodeAPI(this.value);
+      });
     });
-  }
+}
+//slightly altered solution of this https://developer.mozilla.org/en-US/docs/Web/API/Node/removeChild
+function clearSidebar() {
+  let sidebar = document.querySelector("#city-select");
+  let child = document.querySelectorAll(".child");
+  console.log(child);
+  child.forEach((element) => {
+    sidebar.removeChild(element);
+  });
 }
 //creates all of the smaller cards that will contain the 5 day forcast
 function populateCards() {
@@ -60,7 +73,7 @@ function populateCards() {
 }
 
 //This function gets the geocoordinates to properly get the weather
-async function runGeoCodeAPI(city) {
+async function runGeoCodeAPI(cities, city) {
   const apiToken = "cab88f39e9ecaaf152f3f6cf6b68c329";
   const url = `http://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=5&appid=${apiToken}`;
   let result;
@@ -71,6 +84,17 @@ async function runGeoCodeAPI(city) {
     } else {
       getWeatherData(json);
       getFiveDayForcast(json);
+      if (!cities.includes(city)) {
+        cities.push(city);
+      }
+      if (cities.length > 8) {
+        cities.shift();
+      }
+      localStorage.removeItem("array");
+      localStorage.setItem("array", JSON.stringify(cities));
+      clearSidebar();
+      let sidebar = document.querySelector("#city-select");
+      populateSidebar(sidebar, cities);
     }
   });
 }
