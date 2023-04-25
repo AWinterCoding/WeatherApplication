@@ -170,16 +170,16 @@ function getDate(num) {
 function getIcon(weather) {
   switch (weather) {
     case "Rain":
-      return "/assets/images/rain.png";
+      return "/WeatherApplication//assets/images/rain.png";
     case "Clear":
-      return "/assets/images/sunny.png";
+      return "/WeatherApplication//assets/images/sunny.png";
     case "Clouds":
-      return "/assets/images/cloudy.png";
+      return "/WeatherApplication//assets/images/cloudy.png";
     case "Mist":
-      return "/assets/images/windycloud.png";
+      return "/WeatherApplication//assets/images/windycloud.png";
     case "Snow":
-      return "/assets/images/snowy.png";
+      return "/WeatherApplication//assets/images/snowy.png";
     default:
-      return "/assets/images/rain.png";
+      return "/WeatherApplication/assets/images/rain.png";
   }
 }
