@@ -1,3 +1,4 @@
+//This is the initializer
 init();
 function init() {
   const sidebar = document.querySelector("#city-select");
