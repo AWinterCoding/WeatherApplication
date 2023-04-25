@@ -75,7 +75,7 @@ function populateCards() {
 //This function gets the geocoordinates to properly get the weather
 async function runGeoCodeAPI(cities, city) {
   const apiToken = "cab88f39e9ecaaf152f3f6cf6b68c329";
-  const url = `http://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=5&appid=${apiToken}`;
+  const url = `https://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=5&appid=${apiToken}`;
   let result;
   result = await fetch(url);
   result.json().then((json) => {
