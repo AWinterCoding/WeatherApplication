@@ -32,7 +32,6 @@ function populateSidebar(sidebar, cities) {
     .slice()
     .reverse()
     .forEach((element) => {
-      console.log(element);
       var button = document.createElement("input");
       sidebar.appendChild(button);
       button.type = "button";
@@ -48,7 +47,6 @@ function populateSidebar(sidebar, cities) {
 function clearSidebar() {
   let sidebar = document.querySelector("#city-select");
   let child = document.querySelectorAll(".child");
-  console.log(child);
   child.forEach((element) => {
     sidebar.removeChild(element);
   });
@@ -123,7 +121,6 @@ async function getFiveDayForcast(response) {
   const url = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&exclude=current,hourly,minutely,alerts&units=imperial&appid=${apiToken}`;
   const result = await fetch(url);
   result.json().then((json) => {
-    console.log(json);
     populateFiveCards(json);
   });
 }
@@ -131,7 +128,6 @@ async function getFiveDayForcast(response) {
 //updates the elements of the five cards for the future forecast
 function populateFiveCards(response) {
   let fiveul = document.querySelectorAll(".card");
-  console.log(response);
   for (i = 0; i < fiveul.length; i++) {
     let children = fiveul[i].childNodes;
     let weather = response.daily[i].weather[0].main;
