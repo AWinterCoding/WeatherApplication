@@ -21,7 +21,7 @@ To use this project, you will either want it deployed on a website or running in
 If you are utilizing the live server option through VS code, I would recommend the following addon https://marketplace.visualstudio.com/items?itemName=ritwickdey.LiveServer
 
 After launching you will be greeted with one single page with a search bar and a couple of different cards
-Link to deployed Application:https://github.com/AWinterCoding/WeatherApplication
+Link to deployed Application:https://awintercoding.github.io/WeatherApplication/
 ![alt text](https://github.com/AWinterCoding/WeatherApplication/blob/main/assets/Website.PNG)
 
 Each of the cards will by default, display the temperature for Atlanta.
