@@ -22,7 +22,7 @@ If you are utilizing the live server option through VS code, I would recommend t
 
 After launching you will be greeted with one single page with a search bar and a couple of different cards
 Link to deployed Application:https://github.com/AWinterCoding/WeatherApplication
-![alt text](https://github.com/AWinterCoding/WeatherApplication/blob/main/assets/Website.PNG)
+![alt text](https://github.com/AWinterCoding/WeatherApplication/blob/main/assets/images/WeatherApplication.PNG)
 
 Each of the cards will by default, display the temperature for Atlanta.
 If you search in the search box, you will show weather for the city if one is found.
