@@ -32,6 +32,7 @@ function populateSidebar(sidebar, cities) {
     .slice()
     .reverse()
     .forEach((element) => {
+      console.log(element);
       var button = document.createElement("input");
       sidebar.appendChild(button);
       button.type = "button";
@@ -39,7 +40,7 @@ function populateSidebar(sidebar, cities) {
       button.classList.add("child");
       button.style.display = "block";
       button.addEventListener("click", function () {
-        runGeoCodeAPI(this.value);
+        runGeoCodeAPI(cities, this.value);
       });
     });
 }
